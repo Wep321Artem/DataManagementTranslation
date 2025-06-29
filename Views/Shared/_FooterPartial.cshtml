@@ -1,0 +1,14 @@
+﻿@inject IConfiguration config
+
+@{
+    AppConfig appConfig = config?.GetSection("Project").Get<AppConfig>();
+}
+
+
+<div class="footer-container">
+    <div class="LinkFooter">
+        <a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+        <a asp-area="" asp-controller="AddClient" asp-action="AddClient">Добавить клиента</a>
+        <a asp-area="" asp-controller="Reference" asp-action="">Справка</a>
+    </div>
+</div>

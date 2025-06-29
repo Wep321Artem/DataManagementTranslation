@@ -1,0 +1,55 @@
+﻿@model DataManagementTranslation.Models.Clients
+
+@if (TempData["ErrorMessage"] != null)
+{
+	<div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius:7px;">
+		@TempData["ErrorMessage"]
+	</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+	<div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 20px; border-radius:7px;">
+		@TempData["SuccessMessage"]
+	</div>
+}
+
+
+<h1 class="h1Editing">Редактирование данных</h1>
+<form asp-controller="EditingClient" asp-action="SaveEditingClient" asp-route-id="@Model.Id" method="post" style="display:inline; margin-top:30px;">
+<div class="FormEditing">
+<div class="InputEditingContainer">
+	<div class="PartForm">
+		<span>CardCode</span>
+				<input name="CardCode" class="Search" id="CardCode" value="@Model.CardCode" />
+		<span>LastName</span>
+				<input name="LastName" class="Search" id="LastName" value="@Model.LastName" />
+		<span>FirstName</span>
+				<input name="FirstName" class="Search" id="FirstName" value="@Model.FirstName" />
+		<span>SurName</span>
+				<input name="SurName" class="Search" id="SurName" value="@Model.SurName" />
+		<span>PhoneMobile</span>
+				<input name="PhoneMobile" class="Search" id="PhoneInput" value="@Model.PhoneMobile" />
+		<span>Email</span>
+				<input name="Email" class="Search" id="Email" value="@Model.Email" />
+	</div>
+
+	<div class="PartForm">
+		<span>GenderId</span>
+				<input name="GenderId" class="Search" id="GenderId" value="@Model.GenderId" />
+		<span>Birthday</span>
+				<input name="Birthday" class="Search" id="Birthday" value="@Model.Birthday" class="mask-date form-control" />
+		<span>City</span>
+				<input name="City" class="Search" id="City" value="@Model.City" />
+		<span>Pincode</span>
+				<input name="Pincode" class="Search" id="Pincode" value="@Model.Pincode" />
+		<span>Bonus</span>
+				<input name="Bonus" class="Search" id="Bonus" value="@Model.Bonus" />
+		<span>Turnover</span>
+				<input name="Turnover" class="Search" id="Turnover" value="@Model.Turnover" />
+	</div>
+</div>
+
+		<button type="submit" class="delete-btn" style="background-color:limegreen; width:175px; height:35px; color:white; margin-top:20px;">Сохранить</button>
+
+</div>
+</form>

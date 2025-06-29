@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        @await Html.PartialAsync("_MetaPartial")
+        @await Html.PartialAsync("_CssPartial")
+    </head>
+    
+    <body>
+        <header>
+            @await Html.PartialAsync("_HeaderPartial")
+        </header>
+        
+        <main> 
+           @RenderBody() 
+        </main>
+
+        <footer>
+            @await Html.PartialAsync("_FooterPartial")
+        </footer>
+        @await Html.PartialAsync("_JSimport")
+    </body>
+</html>

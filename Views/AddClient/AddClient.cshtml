@@ -1,0 +1,96 @@
+﻿<h1 class="h1Editing">Добавить клиента</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+	<div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius:7px;">
+		@TempData["ErrorMessage"]
+	</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+	<div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 20px; border-radius:7px;">
+		@TempData["SuccessMessage"]
+	</div>
+}
+
+
+<form class="formForAdd" method="post" asp-controller="AddClient" asp-action="AddoneClient">
+
+	<div class="FormAdd">
+		<div class ="InputAddContainer">
+			<div class="PartForm">
+				<div>
+					<span class="h1Input">CardCode</span>
+					<input class="Search" id="CardCode" placeholder="123456" name="CardCode">
+				</div>
+
+				<div>
+					<span class="h1Input">FirstName</span>
+					<input class="Search" id="FirstName" placeholder="" name="FirstName">
+				</div>
+
+				<div>
+					<span class="h1Input">SurName</span>
+					<input class="Search" id="SurName" placeholder="" name="SurName">
+				</div>
+
+				<div>
+					<span class="h1Input">LastName</span>
+					<input class="Search" id="LastName" placeholder="" name="LastName">
+				</div>
+
+
+
+				<div>
+					<span class="h1Input">PhoneMobile</span>
+					<input class="Search" id="PhoneInput" placeholder="+7 777 777 77 77" name="PhoneMobile">
+				</div>
+
+				<div>
+					<span class="h1Input">Email</span>
+					<input class="Search" id="Email" placeholder="razetka220@gmail.com" name="Email">
+				</div>
+
+			</div>
+
+			<div class="PartForm">
+				<div>
+					<span class="h1Input">GenderId</span>
+					<input class="Search" id="GenderId" placeholder="123456" name="GenderId">
+				</div>
+
+				<div>
+					<span class="h1Input">Birthday</span>
+					<input class="Search" id="Birthday" placeholder="12.05.1999" name="Birthday">
+				</div>
+				<div>
+					<span class="h1Input">City</span>
+					<input class="Search" id="City" placeholder="Калининград" name="City">
+				</div>
+
+				<div>
+					<span class="h1Input">Pincode</span>
+					<input class="Search" id="Pincode" placeholder="552321" name="Pincode">
+				</div>
+
+				<div>
+					<span class="h1Input">Bonus</span>
+					<input class="Search" id="Bonus" placeholder="123456" name="Bonus">
+				</div>
+
+				<div>
+					<span class="h1Input">Turnover</span>
+					<input class="Search" id="Turnover" placeholder="123456" name="Turnover">
+				</div>
+
+			</div>
+
+		</div>
+
+
+		<div class="center-btn">
+			<button type="submit" class="delete-btn" style="background-color:limegreen; width:175px; height:35px; color:white; margin-top:20px;">Добавить клиента</button>
+		</div>
+
+	</div>
+</form>

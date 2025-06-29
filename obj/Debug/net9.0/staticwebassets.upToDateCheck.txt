@@ -1,0 +1,14 @@
+wwwroot\css\style.css
+wwwroot\js\main.js
+wwwroot\img\fon1.jpg
+wwwroot\img\glass.png
+wwwroot\img\dell.png
+wwwroot\img\donw.png
+wwwroot\img\File.png
+wwwroot\img\prewiev.png
+wwwroot\img\Search.png
+wwwroot\img\AddClient.png
+wwwroot\img\EditAdd.png
+wwwroot\img\InputEdit.png
+D:\C# project\DataManagementTranslation\DataManagementTranslation\wwwroot\js\main.js
+D:\C# project\DataManagementTranslation\DataManagementTranslation\wwwroot\css\style.css

@@ -1,0 +1,100 @@
+﻿@model List<DataManagementTranslation.Models.Clients>
+@if (TempData["ErrorMessage"] != null)
+{
+	<div style="background-color: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius:7px;">
+		@TempData["ErrorMessage"]
+	</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+	<div style="background-color: #d4edda; color: #155724; padding: 10px; margin-bottom: 20px; border-radius:7px;">
+		@TempData["SuccessMessage"]
+	</div>
+}
+@if (TempData["Notification"] != null)
+{
+	<div style="background-color: yellow; color: black; padding: 10px; margin-bottom: 20px; border-radius:7px;">
+		@TempData["Notification"]
+	</div>
+}
+@{
+	bool isPreviewMode = TempData["PreviewMode"]?.ToString() == "true";
+}
+
+<div style="margin:30px;">
+	<div class="MainContainerInstrum" style="margin:0px 0px 20px 60px;">
+		<div class="InputText">
+
+			<form asp-controller="Home" asp-action="SearchByPhone" method="get">
+				<img src="~/img/glass.png" style="height: 24px; width: auto; align-self: center; margin-left: 6px; margin-top: 6px; margin-right: 8px;" />
+				<input class="Search" style="margin-right: 8px; width: 190px;" placeholder="Найти по номеру телефона..." id="PhoneInput" name="PhoneMobile" />
+				<button type="submit" class="delete-btn" style="background-color:orchid; width:100px; height:35px; color:white; cursor: pointer;">Найти</button>
+			</form>
+
+
+			<form method="post" enctype="multipart/form-data">
+		
+				<input type="file" name="file" style="align-self: center;" />
+				<button type="submit" asp-controller="Home" asp-action="ShowData" name="del" class="delete-btn" style="background-color:orchid; width:160px; height:35px; color:white; cursor: pointer;">Просмотреть данные</button>
+				<button type="submit" asp-controller="Home" asp-action="UploadXLSX" name="donw" class="delete-btn" style="background-color:limegreen; width:175px; height:35px; color:white; margin:0px 15px 0px 15px;">Загрузить данные в БД</button>
+				<button type="submit" asp-controller="Home" asp-action="Delete" name="del" class="delete-btn" style="background-color:red; width:120px; height:35px; color:white; cursor: pointer;">Удалить из БД</button>
+			</form>
+		</div>
+	</div>
+
+	<table class="TableInfo">
+		<tr>
+			<th>CardCode</th>
+			<th>LastName</th>
+			<th>FirstName</th>
+			<th>SurName</th>
+			<th>PhoneMobile</th>
+			<th>Email</th>
+			<th>GenderId</th>
+			<th>Birthday</th>
+			<th>City</th>
+			<th>Pincode</th>
+			<th>Bonus</th>
+			<th>Turnover</th>
+		</tr>
+
+		@foreach (var client in Model)
+		{
+
+			<tr>
+				<td>@client.CardCode</td>
+				<td>@client.LastName</td>
+				<td>@client.FirstName</td>
+				<td>@client.SurName</td>
+				<td>@client.PhoneMobile</td>
+				<td>@client.Email</td>
+				<td>@client.GenderId</td>
+				<td>@client.Birthday?.ToShortDateString()</td>
+				<td>@client.City</td>
+				<td>@client.Pincode</td>
+				<td>@client.Bonus</td>
+				<td>@client.Turnover</td>
+
+				@if (!isPreviewMode)
+				{
+									<td class="td-with-delete">
+					<form asp-action="DeleteById" asp-controller ="Home" asp-route-id="@client.Id" method="post" style="display:inline;">
+						<button type="submit" class="delete-btn">Удалить</button>
+					</form>
+				</td>
+					<td class="td-with-delete">
+						<form asp-controller="EditingClient" asp-action="EditingClient" asp-route-id="@client.Id" method="get" style="display:inline;">
+							<button type="submit" class="delete-btn" style="background-color:orchid;">Ред.</button>
+						</form>
+
+					</td>
+
+				}
+			
+				
+			</tr>
+		}
+	</table>
+
+
+</div>

@@ -1,0 +1,19 @@
+﻿@using Microsoft.Extensions.Options
+@using DataManagementTranslation.Infrastructure
+@inject IConfiguration config
+
+@{
+    AppConfig appConfig = config?.GetSection("Project").Get<AppConfig>();
+}
+
+<div class="header-container">
+    <div class="ProjectName">
+        <span>@appConfig?.InfoProject?.ProjectName</span>
+        
+    </div>
+    <div class="Link">
+        <a asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
+        <a asp-area="" asp-controller="AddClient" asp-action="AddClient">Добавить клиента</a>
+        <a asp-area="" asp-controller="Reference" asp-action="Reference">Справка</a>
+    </div>
+</div>
