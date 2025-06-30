@@ -100,7 +100,7 @@ namespace DataManagementTranslation.Repositories
         }
 
 
-        public async Task<List<Clients>> GetDataByXLSX (IFormFile file) // IFormFile - это интерфейс, представляющий файл отправленный через HTTP-запрос (обычно через форму). 
+        public async Task<List<Clients>> GetDataByXLSX (IFormFile file) 
         {
             List<Clients> clients = new List<Clients>();
 
