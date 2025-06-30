@@ -23,26 +23,24 @@ namespace DataManagementTranslation
             IConfiguration configuration = configBuilder.Build();
             AppConfig config = configuration.GetSection("Project").Get<AppConfig>()!;
 
-            // Настройка контекста БД
+            
             builder.Services.AddDbContext<DataManagerDbContext>(x => x.UseSqlServer(config.Database.ConnectionString));
 
-            // Добавляем контроллеры и представления
+           
             builder.Services.AddControllersWithViews();
 
-            // Регистрируем AppConfig как сервис
+            
             builder.Services.Configure<AppConfig>(builder.Configuration.GetSection("Project"));
 
             builder.Services.AddScoped<ClientRepository>();
-            // Строим приложение
+           
             builder.Services.AddSession();
             WebApplication app = builder.Build();
             app.UseSession();
-            // !!! Порядок middleware важен, сначала должны идти статические файлы !!!
-
-            // Включаем обслуживание статических файлов (Js, CSS и т.д.)
+         
             app.UseStaticFiles();
 
-            // Включаем маршрутизацию (контроллеры и представления)
+
             app.UseRouting();
 
             // Настраиваем маршруты по умолчанию

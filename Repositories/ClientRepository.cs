@@ -106,15 +106,15 @@ namespace DataManagementTranslation.Repositories
 
             //установим лицензию для бибилиотеки EPPlus
 
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; //Специально устанавливаем 7.9 версию библиотеки, чтобы можно было прописать использовать некомерческую лицензию
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; //Специально устанавливаем 7.9 версию библиотеки, чтобы можно использовать некомерческую лицензию
 
-            using (var stream = new MemoryStream()) // используем MemoryStream для работы с файлом. То есть мы создаём поток данных, который хранится в оперативной памяти пк. Можно файл не сохранять на диск
+            using (var stream = new MemoryStream()) 
             {
-                await file.CopyToAsync(stream); // копируем туда файл
+                await file.CopyToAsync(stream);
 
-                using (var package = new ExcelPackage(stream)) //Основной класс EPPlus, который представляет Excel-файл в памяти.
+                using (var package = new ExcelPackage(stream)) 
                 {
-                    var worksheet = package.Workbook.Worksheets[0]; // Получаем первый лист Excel
+                    var worksheet = package.Workbook.Worksheets[0]; 
 
                     if(worksheet.Dimension == null) { throw new InvalidOperationException("Файл пустой или не содержит данных"); }
                     
@@ -123,7 +123,7 @@ namespace DataManagementTranslation.Repositories
                     if(rowCount <= 1) { throw new InvalidOperationException("В файле нет данных, только заголовки"); }
 
                     //Перебор данных
-                    for(int row = 2; row<= rowCount; row++) // начинаем со второй строки т.к первая строка - загоовки
+                    for(int row = 2; row<= rowCount; row++) 
                     {
 
                         var client = new Clients

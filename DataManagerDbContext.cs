@@ -10,7 +10,7 @@ namespace DataManagementTranslation
 
         public DbSet<Clients> Client { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) // используется для настройки модели данных 
+        protected override void OnModelCreating(ModelBuilder modelBuilder) // вкючаем настройки модели данных 
         {
             modelBuilder.ApplyConfiguration(new СlientsConfiguration());
 
