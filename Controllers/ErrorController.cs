@@ -2,12 +2,11 @@
 
 namespace DataManagementTranslation.Controllers
 {
-    public class ReferenceController : Controller
+    public class ErrorController : Controller
     {
-        public IActionResult Reference() {
-
+        public IActionResult Error()
+        {
             return View();
-        
         }
     }
 }

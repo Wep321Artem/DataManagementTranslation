@@ -2,17 +2,14 @@
 using DataManagementTranslation.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 
 namespace DataManagementTranslation.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<IActionResult> Index()
-        {
-            var clients = await _ClientRepository.Get();
-            return View(clients);
-        }
+
         private readonly ClientRepository _ClientRepository;
 
         public HomeController(ClientRepository clientRepository)
@@ -20,12 +17,24 @@ namespace DataManagementTranslation.Controllers
             _ClientRepository = clientRepository;
 
         }
+        public async Task<IActionResult> Index()
+        {
+            try
+            {
+                var clients = await _ClientRepository.GetAsync();
+                return View(clients);
+            }
+            catch (SqlException ex) { TempData["ErrorMassage"] = "Ошибка при подключении к Базам данных"; return View(new List<Clients>());}
 
-        public async Task AddIndataBase(List<Clients> clients)
+        }
+
+
+
+        public async Task AddIndataBaseAsync(List<Clients> clients)
         {
             foreach (var client in clients)
             {
-                await _ClientRepository.Add(
+                await _ClientRepository.AddAsync(
                     client.CardCode,
                     client.LastName,
                     client.SurName,
@@ -47,13 +56,13 @@ namespace DataManagementTranslation.Controllers
         public async Task<IActionResult> UploadXLSX(IFormFile file)
         {
             var clientsJson = HttpContext.Session.GetString("ClientsToUpload");
-
+            
             if (!string.IsNullOrEmpty(clientsJson))
             {
                 var clients = JsonConvert.DeserializeObject<List<Clients>>(clientsJson);
 
-                TempData["SuccessMessage"] = "Загрузка данных в Бд, пожалуйста, подождите";
-                await AddIndataBase(clients);
+                
+                await AddIndataBaseAsync(clients);
 
                 ////очистка сессии
                 HttpContext.Session.Remove("ClientsToUpload");
@@ -66,8 +75,8 @@ namespace DataManagementTranslation.Controllers
                 {
                     if (file != null)
                     {
-                        var clients = await _ClientRepository.GetDataByXLSX(file);
-                        await AddIndataBase(clients);
+                        var clients = await _ClientRepository.GetDataByXLSXAsync(file);
+                        await AddIndataBaseAsync(clients);
                         TempData["SuccessMessage"] = $"Успешно загружено {clients.Count} записей в базу данных.";
                     }
                     else { TempData["Errormessage"] = "Внимание! Файл пустой"; }
@@ -92,7 +101,7 @@ namespace DataManagementTranslation.Controllers
 
             try
             {
-                var clients = await _ClientRepository.GetDataByXLSX(file);
+                var clients = await _ClientRepository.GetDataByXLSXAsync(file);
                 HttpContext.Session.SetString("ClientsToUpload", JsonConvert.SerializeObject(clients));
                 TempData["PreviewMode"] = "true";
                 return View("Index", clients);
@@ -134,7 +143,7 @@ namespace DataManagementTranslation.Controllers
                 TempData["ErrorMessage"] = "Введите номер телефона";
                 return RedirectToAction("Index");
             }
-            var clients = await _ClientRepository.GetByPhone(PhoneMobile);
+            var clients = await _ClientRepository.GetByPhoneAsync(PhoneMobile);
 
             if (clients.Count == 0) { TempData["ErrorMessage"] = "Пользователь с таким номером не найден"; RedirectToAction("Index"); }
 

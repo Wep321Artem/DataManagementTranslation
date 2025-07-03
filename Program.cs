@@ -3,6 +3,8 @@ using DataManagementTranslation;
 using DataManagementTranslation.Infrastructure;
 using DataManagementTranslation.Models;
 using DataManagementTranslation.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataManagementTranslation
@@ -46,11 +48,20 @@ namespace DataManagementTranslation
             // Настраиваем маршруты по умолчанию
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
+
+         
+            
             using (var scope = app.Services.CreateScope())
             {
-                var db = scope.ServiceProvider.GetRequiredService<DataManagerDbContext>();
-                db.Database.Migrate();
+                    var db = scope.ServiceProvider.GetRequiredService<DataManagerDbContext>();
+                    db.Database.Migrate();
             }
+
+                
+
+           
+          
+
             await app.RunAsync();
         }
     }

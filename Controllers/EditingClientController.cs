@@ -13,10 +13,10 @@ namespace DataManagementTranslation.Controllers
             _ClientRepository = ClientRepository;
         }
         [HttpGet]
-        public IActionResult EditingClient(int id)
+        public async Task<IActionResult> EditingClient(int id)
         {
-            var client = _ClientRepository.GetClientByID(id);
-            if (client == null) { return NotFound();}
+            var client = await _ClientRepository.GetClientByIDAsync(id);
+            if (client == null) { return NotFound(); }
             return View(client);
         }
 

@@ -27,7 +27,7 @@ namespace DataManagementTranslation.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    await _ClientRepository.Add(
+                    await _ClientRepository.AddAsync(
                         model.CardCode,
                         model.LastName,
                         model.SurName,
@@ -41,7 +41,10 @@ namespace DataManagementTranslation.Controllers
                         model.Bonus,
                         model.Turnover
                     );
+                    TempData["SuccessMessage"] = "Клиент добавлен!";
                 }
+                else { TempData["ErrorMessage"] = "Данные введены некорректно!"; }
+
                 return RedirectToAction("AddClient");
 
             }

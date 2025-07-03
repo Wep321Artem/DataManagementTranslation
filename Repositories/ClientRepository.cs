@@ -1,8 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using DataManagementTranslation.Controllers;
 using DataManagementTranslation.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml;
+using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataManagementTranslation.Repositories
 {
@@ -15,9 +19,10 @@ namespace DataManagementTranslation.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<Clients>> Get()
+        public async Task<List<Clients>> GetAsync()
         {
-            return await _dbContext.Client
+         
+                return await _dbContext.Client
                 .AsNoTracking()
                 .OrderBy(c => c.CardCode)
                 .ToListAsync();
@@ -36,7 +41,7 @@ namespace DataManagementTranslation.Repositories
 
         }
         
-        public async Task Add(int? CardCode, string? LastName, string? SurName, string? FirstName, string? PhoneMobile, string? Email, string? GenderId, DateTime? Birthday, string? City, int? Pincode, int? Bonus, int? Turnover)
+        public async Task AddAsync(int? CardCode, string? LastName, string? SurName, string? FirstName, string? PhoneMobile, string? Email, string? GenderId, DateTime? Birthday, string? City, int? Pincode, int? Bonus, int? Turnover)
         {
            
             
@@ -100,7 +105,7 @@ namespace DataManagementTranslation.Repositories
         }
 
 
-        public async Task<List<Clients>> GetDataByXLSX (IFormFile file) 
+        public async Task<List<Clients>> GetDataByXLSXAsync (IFormFile file) 
         {
             List<Clients> clients = new List<Clients>();
 
@@ -151,9 +156,9 @@ namespace DataManagementTranslation.Repositories
 
         }
 
-        public Clients GetClientByID(int id)
+        public async Task<Clients> GetClientByIDAsync(int id)
         {
-            return _dbContext.Client.FirstOrDefault(c => c.Id==id);
+            return await _dbContext.Client.FirstOrDefaultAsync(c => c.Id==id);
 
         }
         public async Task<int> GetClientsCountAsync()
@@ -161,7 +166,7 @@ namespace DataManagementTranslation.Repositories
             return await _dbContext.Client.CountAsync();
         }
 
-        public async Task<List<Clients>> GetByPhone(string phone)
+        public async Task<List<Clients>> GetByPhoneAsync(string phone)
         {
             return await _dbContext.Client.Where(p => p.PhoneMobile == phone).ToListAsync();
 
